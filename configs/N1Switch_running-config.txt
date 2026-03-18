@@ -1,0 +1,49 @@
+
+
+!
+interface GigabitEthernet1/0/1
+ no switchport
+ ip address 10.1.1.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1/0/2
+ switchport access vlan 10
+ switchport mode access
+!
+interface GigabitEthernet1/0/3
+ switchport access vlan 10
+ switchport mode access
+!
+interface GigabitEthernet1/0/4
+ switchport access vlan 20
+ switchport mode access
+!
+interface GigabitEthernet1/0/5
+ switchport access vlan 20
+ switchport mode access
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 0001.637c.c001
+ ip address 192.168.10.1 255.255.255.0
+ ip helper-address 10.5.5.2
+!
+interface Vlan20
+ mac-address 0001.637c.c002
+ ip address 192.168.20.1 255.255.255.0
+ ip helper-address 10.5.5.2
+!
+router ospf 1
+ router-id 1.1.1.1
+ log-adjacency-changes
+ network 10.1.1.0 0.0.0.255 area 1
+ network 192.168.10.0 0.0.0.255 area 1
+ network 192.168.20.0 0.0.0.255 area 1
+!
+!
+end
+
